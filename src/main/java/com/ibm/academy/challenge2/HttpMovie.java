@@ -21,11 +21,11 @@ public class HttpMovie {
 
     private final String BASE_URL = "https://jsonmock.hackerrank.com/api/movies/search/?";
 
-    public List<String> getMovies(String title) {
+    public List<Movie> getMovies(String title) {
 
         long page = 1;
         long pages = -1;
-        List<String> movies = new ArrayList<>();
+        List<Movie> movies = new ArrayList<>();
         do {
             InputStream inputStream = null;
             Reader reader = null;
@@ -40,7 +40,12 @@ public class HttpMovie {
                 JSONArray jsonMovies = (JSONArray) jsonObject.get("data");
                 Iterator<JSONObject> iterator = jsonMovies.iterator();
                 while (iterator.hasNext()) {
-                    movies.add((String) iterator.next().get("Title"));
+                    JSONObject jsonMovie = iterator.next();
+                    Movie movie = new Movie();
+                    movie.setTitle((String) jsonMovie.get("Title"));
+                    movie.setYear(((Long) jsonMovie.get("Year")).intValue());
+                    movie.setImbId((String) jsonMovie.get("imdbID"));
+                    movies.add(movie);
                 }
                 page++;
             } catch (MalformedURLException e) {

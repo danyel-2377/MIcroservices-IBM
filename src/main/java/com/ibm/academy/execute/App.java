@@ -18,6 +18,6 @@ public final class App {
         System.out.println(httpImage.downloadImage(url));
 
         HttpMovie httpMovie = new HttpMovie();
-        httpMovie.getMovies("Spiderman").stream().forEach(System.out::println);
+        httpMovie.getMovies("Spiderman").stream().forEach(movie -> System.out.println(movie.toString()));
     }
 }
