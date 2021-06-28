@@ -23,8 +23,8 @@ public class HttpMovie {
 
     public List<Movie> getMovies(String title) {
 
-        long page = 1;
-        long pages = -1;
+        int page = 1;
+        int pages = 0;
         List<Movie> movies = new ArrayList<>();
         do {
             InputStream inputStream = null;
@@ -36,7 +36,7 @@ public class HttpMovie {
                 reader = new InputStreamReader(inputStream);
                 JSONParser jsonParser = new JSONParser();
                 JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-                pages = (Long) jsonObject.get("total_pages");
+                pages = ((Long) jsonObject.get("total_pages")).intValue();
                 JSONArray jsonMovies = (JSONArray) jsonObject.get("data");
                 Iterator<JSONObject> iterator = jsonMovies.iterator();
                 while (iterator.hasNext()) {
